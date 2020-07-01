@@ -1,18 +1,10 @@
 import React from 'react';
 import './App.css';
-import WelcomeMessage from './WelcomeMessage';
-import Calculator from './Calculator';
+
+import Routes from './config/routes'
 
 function App() {
-  return (
-    <div>
-      <h1>Projeto react training</h1>
-      
-      <WelcomeMessage name="Javalee"/>
-      <Calculator/>
-
-    </div>
-  );
+  return (<Routes/>);
 }
 
 export default App;
