@@ -1,6 +1,8 @@
 import React from 'react';
+import { Redirect } from "react-router-dom";
 
 import MyInputText from '../../components/MyInputText'
+import {authenticate} from '../../services/AuthenticationService'
 
 
 class LoginPage extends React.Component {
@@ -10,6 +12,7 @@ class LoginPage extends React.Component {
     this.state = {
         username : '',
         password : '',
+        logged : false
     }
 
     this.onChange = this.onChange.bind(this);
@@ -23,7 +26,26 @@ class LoginPage extends React.Component {
   }
 
   doLogin(){
-    alert("Seu uusario é"+this.state.username+"Sua senha é:"+this.state.password)
+
+    if(!this.state.username || !this.state.username === '' ){
+      alert('Preencha o usuário')
+      return;
+    }
+    if(!this.state.password || !this.state.password === '' ){
+      alert('Preencha a senha')
+      return;
+    }
+
+    let result = authenticate(
+      {
+        username : this.state.username,
+        password : this.state.password
+      }
+    )
+
+    if(result){
+      this.setState({logged:true});
+    }
   }
 
 
@@ -36,6 +58,8 @@ class LoginPage extends React.Component {
             <MyInputText label="Senha" name="password" 
                         value={this.state.password} onChange={this.onChange} password={true}/>             
           <button type="button" onClick={this.doLogin} >Logar</button>
+
+          {this.state.logged&&<Redirect to={{ pathname : '/', state:{ from: this.props.location } }} />}
         </form>
       );
   }
