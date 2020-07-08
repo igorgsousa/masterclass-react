@@ -12,17 +12,15 @@ import StarWarsPage from '../pages/StarWarsPage'
 import HomePage from '../pages/HomePage'
 import LoginPage from '../pages/LoginPage'
 
+import {isAuthenticated} from '../services/AuthenticationService'
+
 function SecureRoute ({children, ...rest}){
   
-  const isAuthenticated = function(){
-    return false;
-  }
- 
   return (
     <Route {...rest} 
       render={
         props=>
-          isAuthenticated() ? ( 
+          isAuthenticated() ? (
               children
             ) : (
               <Redirect to={{ pathname : '/login', state:{ from: props.location } }} />
