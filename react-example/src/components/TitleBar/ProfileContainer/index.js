@@ -1,11 +1,12 @@
 import React from 'react';
 
+import {Container} from './css'
 
 function ProfileContainer(props) {
   return (     
-      <div style={{height: "60px", right: 0, padding: "0px 10px",  display: "flex", position : "absolute",   backgroundColor: "#8a6b8f",       alignItems: "center"}}>
+      <Container>
         {props.children}
-      </div>
+      </Container>
   );
 }
 
