@@ -30,6 +30,22 @@ function SecureRoute ({children, ...rest}){
   )  
 }
 
+function LoginRoute ({children, ...rest}){
+  
+  return (
+    <Route {...rest} 
+      render={
+        props=>
+          !isAuthenticated() ? (
+              children
+            ) : (
+              <Redirect to={{ pathname : '/', state:{ from: props.location } }} />
+            )
+          }
+  />  
+  )  
+}
+
 
 export default function Routes() {
   return (
@@ -43,9 +59,9 @@ export default function Routes() {
                 <StarWarsPage />
             </SecureRoute> 
 
-            <Route path="/login" exact={true}>
+            <LoginRoute path="/login" exact={true}>
                 <LoginPage/>
-            </Route>
+            </LoginRoute>
 
             <SecureRoute path="/" exact={true}>
                 <HomePage />

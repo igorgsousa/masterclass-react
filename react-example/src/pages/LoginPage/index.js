@@ -12,6 +12,8 @@ class LoginPage extends React.Component {
     this.state = {
         username : '',
         password : '',
+        passwordError : '',
+        usernameError : '',
         logged : false
     }
 
@@ -22,17 +24,25 @@ class LoginPage extends React.Component {
 
   onChange(e){
     e.persist()
-    this.setState({ [e.target.name] :  e.target.value})
+    this.setState({ [e.target.name] :  e.target.value, [e.target.name+"Error"] :  '' })
   }
 
   doLogin(){
+    let errors = false;
+
+    this.setState({usernameError : '', passwordError : ''});
 
     if(!this.state.username || !this.state.username === '' ){
-      alert('Preencha o usuário')
-      return;
+      this.setState({usernameError : 'Preencha o usuário'});
+      errors = true;
     }
+
     if(!this.state.password || !this.state.password === '' ){
-      alert('Preencha a senha')
+      this.setState({passwordError : 'Preencha a senha'});
+      errors = true;
+    }
+
+    if(errors){
       return;
     }
 
@@ -45,6 +55,8 @@ class LoginPage extends React.Component {
 
     if(result){
       this.setState({logged:true});
+    }else{
+      this.setState({passwordError : 'Usuário e/ou senha errado'});
     }
   }
 
@@ -54,9 +66,11 @@ class LoginPage extends React.Component {
         <form> 
           <h3>{this.props.title}</h3>
             <MyInputText label="Usuário" name="username" 
-                        value={this.state.username} onChange={this.onChange}/>
+                        value={this.state.username} onChange={this.onChange}
+                        error={this.state.usernameError}/>
             <MyInputText label="Senha" name="password" 
-                        value={this.state.password} onChange={this.onChange} password={true}/>             
+                        value={this.state.password} onChange={this.onChange} password={true}
+                        error={this.state.passwordError}/>             
           <button type="button" onClick={this.doLogin} >Logar</button>
 
           {this.state.logged&&<Redirect to={{ pathname : '/', state:{ from: this.props.location } }} />}
