@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 
-import {Container} from './css'
+import {Alert} from 'react-bootstrap'
+
 
 function StarWarsPersonNotFound(props) {
 
     return (
         <>
             {!!props.show&&(
-                <Container>
+                <Alert variant="danger">
                     Não consegue né moises
-                </Container>
+                </Alert>
                 )
             }
         </>

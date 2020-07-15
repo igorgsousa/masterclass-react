@@ -6,8 +6,9 @@ export const Container = styled.div`
     flex-direction: column;   
 `
 
-export const SearchForm = styled.div`
-  
+export const SearchForm = styled.form`
+    display: flex;
+    justify-content:center;   
 `
 
 export const SearchInput = styled.input`
@@ -17,3 +18,4 @@ export const SearchInput = styled.input`
 export const SearchButton = styled.button`
     
 `
+

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {Container, Row, Col} from 'react-bootstrap'
+import {Container, Row, Col, Form, Button,InputGroup} from 'react-bootstrap'
 
-import {SearchForm, SearchInput, SearchButton} from './css'
+import {SearchForm, SearchButton} from './css'
 import {findById} from '../../../services/StarWarsService ' 
 
 import StarWarsPersonDetails from '../StartWarsPersonDetails'
@@ -51,30 +51,31 @@ class StarWarsPeople extends React.Component {
 
     render() {
         return (
-
-            <Container>
-                <Row>
-                    <Col sm={12} md={8} lg={6} xl={4} style={{backgroundColor:'red'}}>
-                        <SearchForm>
-                            <div>
-                                <SearchInput name="personId" 
-                                            value={this.state.personId}
-                                            onChange={this.onChange}
-                                            placeholder="Digite um id"/>
-                                <SearchButton type="button" onClick={this.onClickSearchButton}> Pesquisar </SearchButton>
-                            </div>
-                            <div>
-                                { this.state.personIdError&&<span>{this.state.personIdError}</span> }
-                            </div>
-                        </SearchForm>
-                        <StarWarsPersonDetails  show={!!this.state.person} person={this.state.person}/>
-                        <StarWarsPersonNotFound show={this.state.showNotFoundMessage}/>
-                    </Col>
-                    <Col sm={12} md={4} lg={6} xl={6} style={{backgroundColor:'green'}}>
-                        a
-                    </Col>    
-                </Row>
-            </Container>
+                <Container fluid={true}>
+                    <Row>
+                        <Col>
+                            <Form>
+                                <InputGroup>
+                                    <Form.Control id="personId" name="personId"  type="text" placeholder="Digite um id" 
+                                                onChange={this.onChange}
+                                                value={this.state.personId}/>
+                                                
+                                    <InputGroup.Append>
+                                        <Button variant="primary" onClick={this.onClickSearchButton} >Pesquisar</Button>
+                                    </InputGroup.Append>
+                                </InputGroup>
+                                
+                            </Form>   
+                            <SearchForm>
+                                <div>
+                                    { this.state.personIdError&&<span>{this.state.personIdError}</span> }
+                                </div>
+                            </SearchForm>
+                            <StarWarsPersonDetails  show={!!this.state.person} person={this.state.person}/>
+                            <StarWarsPersonNotFound show={this.state.showNotFoundMessage}/>
+                        </Col>
+                    </Row>
+                </Container>
         );
     }
 }
